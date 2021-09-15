@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>ListTab.qml</file>
     </qresource>
     <qresource prefix="/i18n">
         <file>qmlTest_en_US.qm</file>
