@@ -8,7 +8,10 @@ ListView {
 
     orientation: ListView.Horizontal
 
+    property int lastCurrentIndex: listTab.currentIndex
+
     model: ListModel {
+        id: listModel
         ListElement { name: "Mercury"; surfaceColor: "gray" }
         ListElement { name: "Venus"; surfaceColor: "yellow" }
         ListElement { name: "Earth"; surfaceColor: "blue" }
@@ -22,56 +25,77 @@ ListView {
     delegate: textDelegate
     spacing: 5
 
-    highlight: highlightComponent
+//    highlight: highlightComponent
     focus: true
 
+//    Component {
+//        id: highlightComponent
 
+//        Item {
+//            width: ListView.view.currentItem.width
+//            height: ListView.view.currentItem.height
+//            x: ListView.view.currentItem.x
 
-    Component {
-        id: highlightComponent
+//            Behavior on x {
+//                SequentialAnimation {
+//                    PropertyAnimation { target: highlightRectangle; property: "opacity"; to: 0; duration: 200 }
+//                    NumberAnimation { duration: 1 }
+//                    PropertyAnimation { target: highlightRectangle; property: "opacity"; to: 1; duration: 200 }
+//                }
+//            }
 
-        Item {
-            width: ListView.view.currentItem.width
-            height: ListView.view.currentItem.height
-
-            x: ListView.view.currentItem.x
-
-            Behavior on x {
-                SequentialAnimation {
-                    PropertyAnimation { target: highlightRectangle; property: "opacity"; to: 0; duration: 200 }
-                    NumberAnimation { duration: 1 }
-                    PropertyAnimation { target: highlightRectangle; property: "opacity"; to: 1; duration: 200 }
-                }
-            }
-
-            Rectangle {
-                id: highlightRectangle
-                anchors.fill: parent
-                color: "yellow"
-
-            }
-        }
-    }
+//            Rectangle {
+//                id: highlightRectangle
+//                anchors.fill: parent
+//                color: "#000000"
+//            }
+//        }
+//    }
 
     Component {
         id:textDelegate
 
         Rectangle{
+            id: itemRect
             width: 60
             height: 40
-            color: "red"
+            color: listTab.currentIndex == index ? "#FFFFFF":surfaceColor
 
             Text {
                 anchors.centerIn: parent
-
                 font.pixelSize: 10
-
                 text:name
             }
+            MouseArea{
+                anchors.fill: parent
+                hoverEnabled: true
+                onPressed: {
+                    if(listTab.lastCurrentIndex != -1){
+                       var item= listTab.itemAtIndex(listTab.lastCurrentIndex)
+                        if(item)
+                        {
+//                            console.log(listModel.get(listTab.lastCurrentIndex).surfaceColor)
+//                            for(var i=0;i<listModel.count;i++)
+//                            {
+//                                var item1 =listModel.get(i)
+//                                console.log(item1.name)
+//                            }
 
+                            item.color =  listModel.get(listTab.lastCurrentIndex).surfaceColor
+                        }
+                    }
+
+                    color = "#FFFFFF"
+
+                    listTab.lastCurrentIndex = index
+
+                    listTab.positionViewAtIndex(index, ListView.Center)
+                }
+            }
         }
+
+
+
     }
-
-
 }
 
