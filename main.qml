@@ -34,15 +34,30 @@ ApplicationWindow {
     }
     // Content Area
     ListTab{
+        id:listItem
+        height: 50
+        width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
+    }
+
+    // 画图矩形
+    Rectangle {
+        id: painterRect
+        width: parent.width
+        height: parent.height-listItem.height-helloBtn.height
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: listItem.bottom
+        border.color: "black"
+        border.width: 5
+        radius: 10
     }
 
     Button{
+        id:helloBtn
         text:  qsTr("Hello World")
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.top: painterRect.bottom
     }
-
 }
 
 

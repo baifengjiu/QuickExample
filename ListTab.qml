@@ -1,14 +1,12 @@
 import QtQuick 2.14
 
 ListView {
-    id: listTab
-    anchors.fill: parent
-    anchors.margins: 20
+    id:listTab
     clip: true
 
     orientation: ListView.Horizontal
 
-    property int lastCurrentIndex: listTab.currentIndex
+//    property int lastCurrentIndex: currentIndex
 
     model: ListModel {
         id: listModel
@@ -57,9 +55,10 @@ ListView {
 
         Rectangle{
             id: itemRect
+            anchors.verticalCenter: parent.verticalCenter
             width: 60
             height: 40
-            color: listTab.currentIndex == index ? "#FFFFFF":surfaceColor
+            color: currentIndex == index ? "#FFFFFF":surfaceColor
 
             Text {
                 anchors.centerIn: parent
@@ -70,32 +69,28 @@ ListView {
                 anchors.fill: parent
                 hoverEnabled: true
                 onPressed: {
-                    if(listTab.lastCurrentIndex != -1){
-                       var item= listTab.itemAtIndex(listTab.lastCurrentIndex)
-                        if(item)
-                        {
-//                            console.log(listModel.get(listTab.lastCurrentIndex).surfaceColor)
+//                    currentIndex 改变后会自动将计算 color: currentIndex == index ? "#FFFFFF":surfaceColor 属性的颜色代码
+//                    这里是手动计算的方式
+//                    if(lastCurrentIndex != -1){
+//                       var item= listTab.itemAtIndex(lastCurrentIndex)
+//                        if(item)
+//                        {
+//                            console.log(listModel.get(lastCurrentIndex).surfaceColor)
 //                            for(var i=0;i<listModel.count;i++)
 //                            {
 //                                var item1 =listModel.get(i)
 //                                console.log(item1.name)
 //                            }
+//                            item.color =  listModel.get(lastCurrentIndex).surfaceColor
+//                        }
+//                    }
+//                    color = "#FFFFFF"
+//                    lastCurrentIndex = index
 
-                            item.color =  listModel.get(listTab.lastCurrentIndex).surfaceColor
-                        }
-                    }
-
-                    color = "#FFFFFF"
-
-                    listTab.lastCurrentIndex = index
-
-                    listTab.positionViewAtIndex(index, ListView.Center)
+                    currentIndex = index
                 }
             }
         }
-
-
-
     }
 }
 

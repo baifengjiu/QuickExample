@@ -20,11 +20,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hello World</source>
+        <source>Translate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Translate</source>
+        <source>Hello World</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
